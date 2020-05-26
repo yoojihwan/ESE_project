@@ -32,7 +32,7 @@ firebase_admin.initialize_app(cred, {
 })
 
 old_mm = "PowerOFF"
-#old_b = "0"
+old_b = "0"
 old_c = "0"
 old_mp = "PowerOFF"
 old_uv = "PowerOFF"
@@ -47,13 +47,26 @@ def music_mode(new):
 #def brightness(new):
 #	print("brightness =", new)
 
-def color(new):
-	print("color =", new)
-	if new != "0":
-		r = int("0x" + new[3] + new[4])
-		g = int("0x" + new[1] + new[2])
-		b = int("0x" + new[5] + new[6])
-		colorChange(strip, Color(g, r, b))	
+def color_c(c, bright):
+	bright_value = 255 - bright
+	if c == "0":
+		colorChange(strip, Color(0, 0, 0))
+	else:
+		r = int(c[1] + c[2], 16)
+		g = int(c[3] + c[4], 16)
+		b = int(c[5] + c[6], 16)
+		
+		r = int(r-bright_value)
+		g = int(g-bright_value)
+		b = int(b-bright_value)
+		if r < 0:
+			r = 1
+		if g < 0:
+			g = 1
+		if b < 0:
+			b = 1
+		print(r, g, b)
+		colorChange(strip, Color(g, r, b))
 
 def MoodLight_on(new):
 	if new == "PowerON":
@@ -71,18 +84,14 @@ def uvled(uv, t):
                 #ser.write(n)
 #		return 0
 
-#def timer(t):
-#	return{'1시간': 1, '2시간': 2, '3시간': 3, '4시간': 4, '5시간': 5, \
-#'6시간': 6, '9시간': 9, '12시간': 12}.get(t, 0)
-
 def colorChange(strip, color):
-	for i in range(strip, numPixels()):
+	for i in range(strip.numPixels()):
 		strip.setPixelColor(i, color)
 	strip.show()
 
 while(1):
 	new_mm = db.reference('99-1=0/MoodLight/MusicMode/power').get()
-#	new_b = db.reference('99-1=0/MoodLight/bright').get()
+	new_b = db.reference('99-1=0/MoodLight/bright').get()
 	new_c = db.reference('99-1=0/MoodLight/RGBValue').get()
 	new_mp = db.reference('99-1=0/MoodLight/power').get()
 	new_uv = db.reference('99-1=0/UVLED/power').get()
@@ -91,14 +100,14 @@ while(1):
 	if old_mm != new_mm:
 		music_mode(new_mm)
 		old_mm = new_mm        
-  
-#	if old_b != new_b:
-#		brightness(new_b)
-#		old_b = new_b
-
+	
 	if old_c != new_c:
-		color(new_c)
+		color_c(new_c, int(new_b))
 		old_c = new_c
+
+	if old_b != new_b:
+		color_c(new_c, int(new_b))
+		old_b = new_b
 
 	if old_mp != new_mp:
 		MoodLight_on(new_mp)
