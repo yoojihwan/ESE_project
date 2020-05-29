@@ -41,7 +41,7 @@ oldUV= "PowerOFF"
 def waveMode1(special):
 	print("waveMode1")
 	j = 0
-	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
+	while(special == db.reference('99-1=0/MoodLight/mode').get()):
 		c = db.reference('99-1=0/MoodLight/RGBValue').get()
 		bright = db.reference('99-1=0/MoodLight/bright').get()
 		strip.setBrightness(int(bright))
@@ -67,7 +67,7 @@ def waveMode1(special):
 # 파도타기 가로
 def waveMode2(special):
 	print("waveMode2")
-	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
+	while(special == db.reference('99-1=0/MoodLight/mode').get()):
 		c = db.reference('99-1=0/MoodLight/RGBValue').get()
 		bright = db.reference('99-1=0/MoodLight/bright').get()
 		strip.setBrightness(int(bright))
@@ -92,7 +92,7 @@ def waveMode2(special):
 def rainbowMode1(special):
 	print("rainbowMode1")
 	j = 0
-	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
+	while(special == db.reference('99-1=0/MoodLight/mode').get()):
 		
 		bright = db.reference('99-1=0/MoodLight/bright').get()
 		strip.setBrightness(int(bright))
@@ -106,7 +106,7 @@ def rainbowMode1(special):
 def rainbowMode2(special):
 	print("rainbowMode2")
 	j = 0
-	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
+	while(special == db.reference('99-1=0/MoodLight/mode').get()):
 		
 		bright = db.reference('99-1=0/MoodLight/bright').get()
 		strip.setBrightness(int(bright))
@@ -155,7 +155,7 @@ def wheel(pos):
 
 # 데이터 베이스 값 읽기
 while(1):
-	newSpecial = db.reference('99-1=0/MoodLight/MusicMode/power').get()
+	newSpecial = db.reference('99-1=0/MoodLight/mode').get()
 	newBright = db.reference('99-1=0/MoodLight/bright').get()
 	newColor = db.reference('99-1=0/MoodLight/RGBValue').get()
 	newMood = db.reference('99-1=0/MoodLight/power').get()
