@@ -10,7 +10,7 @@ LED_COUNT		= 72	# 사용할 LED 개수 설정
 LED_PIN			= 18	# 사용할 디지털 핀 설정
 LED_FREQ_HZ		= 800000	# LED 신호의 주기 설정
 LED_DMA			= 10	# 신호를 생성하기위한 DMA 채널 설정
-LED_BRIGHTNESS	= 155	# LED 밝기 초기화
+LED_BRIGHTNESS	= 100	# LED 밝기 초기화
 LED_INVERT		= False	# 신호 변환 사용시 True
 LED_CHANNEL		= 0		# GPIO 13, 19, 41, 45, 53번 핀을 사용할 경우 '1'
 
@@ -43,6 +43,9 @@ def waveMode1(special):
 	j = 0
 	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
 		c = db.reference('99-1=0/MoodLight/RGBValue').get()
+		bright = db.reference('99-1=0/MoodLight/bright').get()
+		strip.setBrightness(int(bright))
+		
 		if c == "0":
 			r, g, b = 0, 0, 0
 		else:
@@ -66,6 +69,8 @@ def waveMode2(special):
 	print("waveMode2")
 	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
 		c = db.reference('99-1=0/MoodLight/RGBValue').get()
+		bright = db.reference('99-1=0/MoodLight/bright').get()
+		strip.setBrightness(int(bright))
 		if c == "0":
 			r, g, b = 0, 0, 0
 		else:
@@ -85,27 +90,31 @@ def waveMode2(special):
 
 # 같은 색 무지개
 def rainbowMode1(special):
-	print("waveMode1")
+	print("rainbowMode1")
 	j = 0
 	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
+		
+		bright = db.reference('99-1=0/MoodLight/bright').get()
+		strip.setBrightness(int(bright))
 		for i in range(strip.numPixels()):
 			strip.setPixelColor(i, wheel((i+j) & 255))
 			j += 1
 		strip.show()
 		time.sleep(20/1000.0)
-	print("out")
 
 # 다른 색 무지개
 def rainbowMode2(special):
 	print("rainbowMode2")
 	j = 0
 	while(special == db.reference('99-1=0/MoodLight/MusicMode/power').get()):
+		
+		bright = db.reference('99-1=0/MoodLight/bright').get()
+		strip.setBrightness(int(bright))
 		for i in range(strip.numPixels()):
 			strip.setPixelColor(i, wheel((int(i * 256 / strip.numPixels()) + j) & 255))
 			j += 1
 		strip.show()
 		time.sleep(20/1000.0)
-	print("out")
 
 # 무드등 동작
 def moodLight(c, bright):
