@@ -134,7 +134,7 @@ def uvLed(uv):
 		ser.write(u)
 	else:
 		print("turn off uv led")
-        ser.write(d)
+		ser.write(d)
 
 # 네오픽셀 색 변경
 def colorChange(strip, color):
