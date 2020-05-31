@@ -62,7 +62,7 @@ def waveMode1(special):
 					strip.setPixelColor(i+j, Color(0, 0, 0))
 				strip.show()
 				j -=12
-				time.sleep(0.2)
+				time.sleep(0.5)
 
 # 파도타기 가로
 def waveMode2(special):
@@ -131,10 +131,10 @@ def moodLight(c, bright):
 def uvLed(uv):
 	if uv == "PowerON":
 		print("turn on uv led")
-		ser.write(u)
+		#ser.write(y)
 	else:
 		print("turn off uv led")
-		ser.write(d)
+        #ser.write(n)
 
 # 네오픽셀 색 변경
 def colorChange(strip, color):
@@ -174,7 +174,9 @@ while(1):
 			rainbowMode2(newSpecial)
 		else:
 			colorChange(strip, Color(0, 0, 0))
-		oldSpecial = newSpecial        
+		oldSpecial = newSpecial
+		#oldColor = '0'
+		oldColor = '0'
 	
 	if oldColor != newColor:
 		if newMood == "PowerON":
