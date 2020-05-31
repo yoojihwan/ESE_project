@@ -131,10 +131,10 @@ def moodLight(c, bright):
 def uvLed(uv):
 	if uv == "PowerON":
 		print("turn on uv led")
-		ser.write(y)
+		ser.write(u)
 	else:
 		print("turn off uv led")
-        ser.write(n)
+        ser.write(d)
 
 # 네오픽셀 색 변경
 def colorChange(strip, color):
