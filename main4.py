@@ -176,7 +176,7 @@ while(1):
 			colorChange(strip, Color(0, 0, 0))
 		oldSpecial = newSpecial
 		#oldColor = '0'
-		oldColor = '0'
+		oldBright = '0'
 	
 	if oldColor != newColor:
 		if newMood == "PowerON":
