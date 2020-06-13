@@ -7,8 +7,6 @@ import time
 #import serial
 from neopixel import *
 
-print('start1')
-
 # 네오픽셀 LED 출력을 위한 설정
 LED_COUNT		= 72	# 사용할 LED 개수 설정
 LED_PIN			= 18	# 사용할 디지털 핀 설정
@@ -18,13 +16,9 @@ LED_BRIGHTNESS	= 100	# LED 밝기 초기화
 LED_INVERT		= False	# 신호 변환 사용시 True
 LED_CHANNEL		= 0		# GPIO 13, 19, 41, 45, 53번 핀을 사용할 경우 '1'
 
-print('start2')
-
 # 네오픽셀 객체 초기화
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
 strip.begin()
-
-print('start3')
 
 # 아두이노로 보낼 시리얼 신호 초기화
 #ser = serial.Serial("/dev/ttyUSB0", 9600)
@@ -162,7 +156,10 @@ def wheel(pos):
         pos -= 170
         return Color(0, pos * 3, 255 - pos * 3)
 
-print('start4')
+time.sleep(5)
+colorChange(strip, Color(100, 100, 100))
+time.sleep(1)
+colorChange(strip, Color(0, 0, 0))
 
 # 데이터 베이스 값 읽기
 while(1):
